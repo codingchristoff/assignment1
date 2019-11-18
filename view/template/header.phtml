@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <!-- Required meta tags -->
@@ -6,19 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/myStyle.css">
-    <title><?php echo $view->pageTitle ?></title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/css/myStyle.css">
+
+    <title><?php echo $view->pageTitle;?></title>
 </head>
 <body>
-
-<div class="row">
-    <div id="menu" class="col-xs-6 col-sm-3 col-md-2">
-        <ul class="nav navbar_default nav-stacked">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="page1.php">Page1</a></li>
-            <li><a href="converter.php">Converter</a></li>
-            <li><a href="about.php">About</a></li>
-        </ul>
-    </div>
-</div>

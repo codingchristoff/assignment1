@@ -1,3 +1,19 @@
-.jumbotron{
-  background-color: crimson;
+.panel-footer {
+    background: #4cae4c;
+}
+
+.jumbotron {
+    background: #2aabd2;
+}
+
+#menu li {
+    background: #9acfea;
+    border-radius: 20px;
+    width: 200px;
+    text-align: center;
+}
+
+#login {
+    background: #6f42c1;
+    margin: 100px;
 }
