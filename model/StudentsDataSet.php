@@ -16,7 +16,7 @@ class StudentsDataSet
 
     public function fetchAllStudents()
     {
-        $sqlQuery = 'SELECT * FROM students';
+        $sqlQuery = 'SELECT * FROM users';
 
         echo $sqlQuery;  //helpful for debugging to see what SQL query has been created
 
