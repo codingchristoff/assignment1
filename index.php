@@ -1,3 +1,4 @@
+<!-- Controller -->
 <?php
 
 $view = new stdClass();
