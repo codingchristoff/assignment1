@@ -2,21 +2,19 @@
 <?php
 
 
-class StudentData
+class UserData
 {
 // private fields
-    private $_id, $_firstName, $_lastName, $_international, $_courseID;
+    private $_id, $_firstName, $_lastName, $_email, $_dateJoined, $_password;
 
     public function __construct($dbRow)
     {
-        $this->_id = $dbRow['id'];
+        $this->_id = $dbRow['userID'];
         $this->_firstName = $dbRow['first_name'];
         $this->_lastName = $dbRow['last_name'];
-        if ($dbRow['international'])
-            $this->_international = 'yes';
-        else
-            $this->_international = 'no';
-        $this->_courseID = $dbRow['courseID'];
+        $this->_email = $dbRow['email'];
+        $this->_password = $dbRow['password'];
+        $this->_dateJoined = $dbRow['dateJoined'];
     }
 
     public function getStudentID()
@@ -43,16 +41,24 @@ class StudentData
     /**
      * @return mixed
      */
-    public function getCourseID()
+    public function getEmail()
     {
-        return $this->_courseID;
+        return $this->_email;
     }
 
     /**
      * @return string
      */
-    public function getInternational()
+    public function getPassword()
     {
-        return $this->_international;
+        return $this->_password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateJoined()
+    {
+        return $this->_dateJoined;
     }
 }

@@ -1,7 +1,7 @@
 <!-- Model -->
 <?php
 
-require_once ('model/StudentData.php');  // class from previous slide
+require_once('model/UserData.php');  // class from previous slide
 require_once ('model/database.php');
 
 class StudentsDataSet
@@ -26,8 +26,8 @@ class StudentsDataSet
         $dataSet = [];
 
         while ($row = $statement->fetch()) {
-            $dataSet[] = new StudentData($row);
+            $dataSet[] = new UserData($row);
         }
-        return $dataSet;  // return an array of StudentData objects
+        return $dataSet;  // return an array of UserData objects
     }
 }
