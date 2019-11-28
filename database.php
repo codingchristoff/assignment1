@@ -4,15 +4,11 @@
 $view = new stdClass();
 $view-> pageTitle = "Database";
 
-require_once('model/StudentsDataSet.php');
+require_once('model/UserDataSet.php');
 
-$view = new stdClass();
+$userDataSet = new UserDataSet();
 
-$view->pageTitle = 'Student Information System';
-
-$studentsDataSet = new StudentsDataSet();
-
-$view->studentsDataSet = $studentsDataSet->fetchAllStudents();
+$view->userDataSet = $userDataSet->fetchAllUsers();
 
 require_once('view/database.phtml');
 

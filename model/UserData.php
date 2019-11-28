@@ -5,19 +5,19 @@
 class UserData
 {
 // private fields
-    private $_id, $_firstName, $_lastName, $_email, $_dateJoined, $_password;
+    private $_id, $_firstName, $_lastName, $_email, $_dateJoined, $password;
 
     public function __construct($dbRow)
     {
         $this->_id = $dbRow['userID'];
-        $this->_firstName = $dbRow['first_name'];
-        $this->_lastName = $dbRow['last_name'];
+        $this->_firstName = $dbRow['firstName'];
+        $this->_lastName = $dbRow['lastName'];
         $this->_email = $dbRow['email'];
-        $this->_password = $dbRow['password'];
+        $this->password = $dbRow['password'];
         $this->_dateJoined = $dbRow['dateJoined'];
     }
 
-    public function getStudentID()
+    public function getUserID()
     {
         return $this->_id;
     }
@@ -51,7 +51,7 @@ class UserData
      */
     public function getPassword()
     {
-        return $this->_password;
+        return $this->password;
     }
 
     /**

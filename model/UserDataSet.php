@@ -1,10 +1,10 @@
 <!-- Model -->
 <?php
 
-require_once('model/UserData.php');  // class from previous slide
-require_once ('model/database.php');
+require_once('model/UserData.php');
+require_once('model/Database.php');
 
-class StudentsDataSet
+class UserDataSet
 {
     protected $_dbHandle, $_dbInstance;
 
@@ -14,11 +14,11 @@ class StudentsDataSet
         $this->_dbHandle = $this->_dbInstance->getdbConnection();
     }
 
-    public function fetchAllStudents()
+    public function fetchAllUsers()
     {
         $sqlQuery = 'SELECT * FROM users';
 
-        echo $sqlQuery;  //helpful for debugging to see what SQL query has been created
+        //echo $sqlQuery;  //Debugging code
 
         $statement = $this->_dbHandle->prepare($sqlQuery); // prepare PDO statement
         $statement->execute(); // execute the PDO statement

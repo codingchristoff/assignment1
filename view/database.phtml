@@ -2,7 +2,10 @@
 <?php require ('view/template/header.phtml'); ?>
 
 <div class="jumbotron">
-    <h1>Database</h1>
+   <div>
+       <h1>Database</h1>
+   </div>
+
 </div>
 
 <div class="shadow-lg">
@@ -12,8 +15,8 @@
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <table class="datatable">
         <thead><tr> <th>User ID</th> <th>First name</th> <th>Last name</th> <th>Email</th> <th>Password</th> <th>Date Joined</th> </tr></thead><tbody>
-        <?php foreach ($view->studentsDataSet as $userData) {
-            echo '<tr> <td>' . $userData->getStudentID() . '</td> <td>' . $userData->getFirstName() . '</td> <td>' . $userData->getLastName() . '</td> <td>' . $userData->getEmail() . '</td> <td>' . $userData->getPassword() . '</td> <td>' . $userData->getDateJoined() . '</td> </td> </tr>';} ?>
+        <?php foreach ($view->userDataSet as $userData) {
+            echo '<tr> <td>' . $userData->getUserID() . '</td> <td>' . $userData->getFirstName() . '</td> <td>' . $userData->getLastName() . '</td> <td>' . $userData->getEmail() . '</td> <td>' . $userData->getPassword() . '</td> <td>' . $userData->getDateJoined() . '</td> </td> </tr>';} ?>
         </tbody></table>
 
 <?php require ('view/template/footer.phtml'); ?>

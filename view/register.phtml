@@ -1,0 +1,57 @@
+<!-- View -->
+<!-- Button trigger modal -->
+<button id="register" type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+    Register
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>To register please complete the form below.</p>
+
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" name="firstName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" name="lastName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                        <span-help class="alert-info">Password must be at least 6 characters long.</span-help>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" name="confirm_password" class="form-control" required>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" name="submit" value="register">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
