@@ -74,30 +74,39 @@ class User
                         if (password_verify($password, $hashedPassword))
                         {
                             $this->loggedIn = true;
+
+                            $_SESSION["loggedin"] = $this->getLoggedIn();
+                            $_SESSION["userID"] = $this->userID;
+                            $_SESSION["userName"] = $this->getName();
+
+                            print_r($_SESSION);
+                            session_write_close();
+
                             $URL = "account.php";
-                            //return '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
-                            return true;
-                            }                        }
-                        else
-                        {
-                            // Display an error message if password is not valid
-                            return "The password you entered was not valid.";
+                            return '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+
                         }
                     }
-                }
-                else
-                {
-                    // Display an error message if username doesn't exist
-                    return "No account found with that username.";
+                    else
+                    {
+                        // Display an error message if password is not valid
+                        return "The password you entered was not valid.";
+                    }
                 }
             }
             else
             {
-                return "Oops! Something went wrong. Please try again later.";
+                // Display an error message if username doesn't exist
+                return "No account found with that username.";
             }
+        }
+        else
+        {
+            return "Oops! Something went wrong. Please try again later.";
+        }
 
-            // Close statement
-            unset($stmt);
+        // Close statement
+        unset($stmt);
 
         // Close connection
         unset($pdo);

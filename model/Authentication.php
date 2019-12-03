@@ -1,16 +1,8 @@
-<!-- Controller -->
+<!-- Model -->
 <?php
 
-session_start();
+require_once ('model/User.php');
 
-
-$view = new stdClass();
-$view->pageTitle = "Home";
-require "view/index.phtml";
-
-
-require_once ('model/Authentication.php');
-/*
 $user = new User();
 
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
@@ -19,11 +11,14 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
     print_r($_SESSION);
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submit'] == 'logout')
     {
-       echo $user->logout();
+        echo $user->logout();
     }
 }
 else
-    {
+{
+    $url = 'index.php';
+    //echo '<META HTTP-EQUIV="refresh" content="0;URL=' . $url . '">';
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //$user = new User();
         if ($_POST['submit'] == 'register') {
@@ -42,11 +37,11 @@ else
                 $_SESSION["userID"] = $userID;
                 $_SESSION["userName"] = $user->getName();
                 print_r($_SESSION);
-                session_write_close();
+                session_write_close();*/
 
                 //session_regenerate_id(true);
 
-               // setcookie('userID') = $_SESSION["userID"];
+                // setcookie('userID') = $_SESSION["userID"];
             }
             else
             {
@@ -55,7 +50,3 @@ else
         }
     }
 }
-*/
-
-
-

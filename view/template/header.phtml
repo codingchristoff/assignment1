@@ -18,20 +18,21 @@
 <div class="nav navbar">
     <a href="index.php">Home</a>
     <a href="database.php">Database</a>
-    <div class="col-auto">
-        <!-- Shows login / register buttons if the user is logged out. -->
-        <?php if (!isset($_SESSION["loggedin"]))
+
+    <!-- Shows login / register buttons if the user is logged out. -->
+    <?php if (!isset($_SESSION["loggedin"]))
         {
-            require "view/login.phtml";
-            require "view/register.phtml";
+        require "view/login.phtml";
+        require "view/register.phtml";
         }
         else
         {
-            require "view/logout.phtml";
+           echo "<a href='account.php'>Account</a>";
+        require "view/logout.phtml";
             echo "Welcome back: " . $_SESSION["userName"];
         }
         ?>
-    </div>
+
 </div>
 
 
