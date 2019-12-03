@@ -20,14 +20,15 @@
     <a href="database.php">Database</a>
     <div class="col-auto">
         <!-- Shows login / register buttons if the user is logged out. -->
-        <?php if (!isset($_SESSION["loggedIn"]))
+        <?php if (!isset($_SESSION["loggedin"]))
         {
             require "view/login.phtml";
             require "view/register.phtml";
         }
         else
         {
-            echo "You are logged in";
+            require "view/logout.phtml";
+            echo "Welcome back: " . $_SESSION["userName"];
         }
         ?>
     </div>

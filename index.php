@@ -1,33 +1,62 @@
 <!-- Controller -->
 <?php
 
+session_start();
+
+
 $view = new stdClass();
 $view->pageTitle = "Home";
-
-
 require "view/index.phtml";
 
-require_once ('model/Register.php');
 require_once ('model/User.php');
-require_once ('model/Login.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['submit'] == 'register') {
+$user = new User();
 
-        $registration = new Register();
-
-        $validate = $registration->validate($_POST['firstName'], $_POST['lastName'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['confirm_password']);
-
-        echo $validate;
-    }
-    elseif ($_POST['submit'] == 'login')
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
+{
+    echo "already logged in";
+    print_r($_SESSION);
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submit'] == 'logout')
     {
-       $login = new Login();
-       echo $login->test($_POST['username'], $_POST['password']);
-       $result = $login->login($_POST['username'], $_POST['password']);
-       echo $result;
+       echo $user->logout();
     }
 }
+else
+    {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        //$user = new User();
+        if ($_POST['submit'] == 'register') {
+            $validate = $user->register($_POST['firstName'], $_POST['lastName'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['confirm_password']);
+
+            echo "test validate" . $validate;
+        } elseif ($_POST['submit'] == 'login') {
+
+
+            $result = $user->login($_POST['username'], $_POST['password']);
+
+            if ($result === true)
+            {
+                $userID = $user->getID();
+                $_SESSION["loggedin"] = $user->getLoggedIn();
+                $_SESSION["userID"] = $userID;
+                $_SESSION["userName"] = $user->getName();
+                print_r($_SESSION);
+                session_write_close();
+
+                //session_regenerate_id(true);
+
+               // setcookie('userID') = $_SESSION["userID"];
+            }
+            else
+            {
+                echo $result;
+            }
+        }
+    }
+}
+
+
+
 
 
 

@@ -84,12 +84,12 @@ class Register
             {
                 return "Password did not match.";
             }
-                $this->sendToDB();
+               return $this->sendToDB($password);
         }
         return $this->userName_err;
     }
 
-    public function sendToDB()
+    public function sendToDB($password)
     {
         // Check input errors before inserting in database
         if (empty($this->userName_err) && empty($this->password_err) && empty($this->confirm_password_err))
@@ -111,17 +111,18 @@ class Register
                 $param_lastName = $this->lastName;
                 $param_email = $this->email;
                 $param_userName = $this->userName;
-                $param_password = password_hash($this->password, PASSWORD_DEFAULT); // Creates a password hash
+                $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
 
                 // Attempt to execute the prepared statement
                 if ($stmt->execute())
                 {
-                    return "Successful";
+                    return "Successful" . $param_password . $this->password;
                 }
                 else
                 {
                     return "Something went wrong. Please try again later.";
                 }
+
             }
             // Close statement
             unset($stmt);
