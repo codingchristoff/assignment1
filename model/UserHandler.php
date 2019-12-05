@@ -1,56 +1,22 @@
-<!-- Model -->
 <?php
 
 require_once('model/Database.php');
-class User
+require_once('model/UserData.php');
+
+class UserHandler
 {
     protected $_dbHandle, $_dbInstance;
-    protected $userID, $firstName, $lastName, $email, $userName, $password, $dateJoined, $loggedIn;
 
     public function __construct()
     {
         $this->_dbInstance = Database::getInstance();
         $this->_dbHandle = $this->_dbInstance->getdbConnection();
-        $this->userID = $this->firstName = $this->lastName = $this->email = $this->userName = $this->password = $this->dateJoined = "";
-        $this->loggedIn = false;
-    }
-
-    public function getName()
-    {
-        return $this->userName;
-    }
-
-    public function getID()
-    {
-        return $this->userID;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLoggedIn()
-    {
-        return $this->loggedIn;
-    }
-
-    public function logOut()
-    {
-        //session_start();
-// Destroy the session.
-        session_destroy();
-
-// Redirect to login page
-        $URL = "index.php";
-        return '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
-        //header("location: index.php");
-        //exit;
-
     }
 
     public function login($userName, $password)
     {
         // Prepare a select statement
-        $sql = "SELECT userID,userName,password FROM users WHERE userName = :userName";
+        $sql = "SELECT * FROM users WHERE userName = :userName";
 
         if ($stmt = $this->_dbHandle->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
@@ -66,25 +32,26 @@ class User
                 {
                     if ($row = $stmt->fetch())
                     {
-                        $this->userID = $row["userID"];
-                        $this->userName = $row["userName"];
+                        $userData = new UserData($row);
 
-                        $hashedPassword = $row["password"];
+                        $hashedPassword = $userData->getPassword();
 
                         if (password_verify($password, $hashedPassword))
                         {
-                            $this->loggedIn = true;
+                            $userData->setLoggedIn(true);
+                            $_SESSION["loggedin"] = $userData->getLoggedIn();
+                            $_SESSION["userID"] = $userData->getUserID();
+                            $_SESSION["firstName"] = $userData->getFirstName();
+                            $_SESSION["lastName"] = $userData->getLastName();
+                            $_SESSION["email"] = $userData->getEmail();
+                            $_SESSION["userName"] = $userData->getUserName();
+                            $_SESSION["profileImage"] = $userData->getProfileImage();
 
-                            $_SESSION["loggedin"] = $this->getLoggedIn();
-                            $_SESSION["userID"] = $this->userID;
-                            $_SESSION["userName"] = $this->getName();
-
-                            print_r($_SESSION);
                             session_write_close();
 
+                            //Redirects to account page on login
                             $URL = "account.php";
                             return '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
-
                         }
                     }
                     else
@@ -104,12 +71,20 @@ class User
         {
             return "Oops! Something went wrong. Please try again later.";
         }
-
         // Close statement
         unset($stmt);
 
         // Close connection
         unset($pdo);
+    }
+
+    public function logOut()
+    {
+        session_destroy();
+
+        // Redirect to login page
+        $URL = "index.php";
+        return '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
     }
 
     public function register($firstName, $lastName, $email, $userName, $password, $confirm_password)
@@ -119,10 +94,7 @@ class User
 
         if ($userVerify === true && $passVerify === true)
         {
-            $this->firstName = $firstName;
-            $this->lastName = $lastName;
-            $this->email = $email;
-            return $this->sendToDB();
+            return $this->sendToDB($firstName, $lastName, $email, $userName, $password);
         }
         else
         {
@@ -130,7 +102,7 @@ class User
         }
     }
 
-    private function sendToDB()
+    private function sendToDB($firstName, $lastName, $email, $userName, $password)
     {
         // Prepare an insert statement
         $sql = "INSERT INTO users (firstName,lastName,email,userName,password) VALUES (:firstName,:lastName,:email,:userName,:password)";
@@ -145,16 +117,16 @@ class User
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
 
             // Set parameters
-            $param_firstName = $this->firstName;
-            $param_lastName = $this->lastName;
-            $param_email = $this->email;
-            $param_userName = $this->userName;
-            $param_password = password_hash($this->password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_firstName = trim($firstName);
+            $param_lastName = trim($lastName);
+            $param_email = trim($email);
+            $param_userName = trim($userName);
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
 
             // Attempt to execute the prepared statement
             if ($stmt->execute())
             {
-                return "Successful";
+                return "Successfully registered, please login.";
             }
             else
             {
@@ -190,7 +162,6 @@ class User
                 }
                 else
                 {
-                    $this->userName = trim($userName);
                     return true;
                 }
             }
@@ -199,8 +170,9 @@ class User
                 return "An error has occurred, please try again later.";
             }
         }
-        // Close statement
+        //Close statement
         unset($stmt);
+        //Close connection
         unset($pdo);
     }
 
@@ -217,9 +189,7 @@ class User
         }
         else
         {
-            $this->password = trim($password);
             return true;
         }
     }
-
 }

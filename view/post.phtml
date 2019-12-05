@@ -1,0 +1,20 @@
+<?php require_once ("view/template/header.phtml"); ?>
+
+<div class="container">
+
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+
+        <div class="form-group">
+            <input type="text" name="search" class="form-control">
+            <button type="submit" class="btn btn-primary" name="submit" value="searchMessage">Search</button>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <table class="datatable">
+        <thead><tr> <th>Post ID</th> <th>Post Title</th> <th>Post Content</th> <th>Post Owner</th> <th>Date Posted</th></tr></thead><tbody>
+        <?php foreach ($view->postHandler as $post) {
+            echo '<tr> <td>' . $post->getPostID() . '</td> <td>' . $post->getPostTitle() . '</td> <td>' . $post->getPostContent() . '</td> <td>' . $post->getPostOwner() . '</td> <td>' . $post->getPostDate() . '</td> </tr>';} ?>
+        </tbody></table>
+</div>

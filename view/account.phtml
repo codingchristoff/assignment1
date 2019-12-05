@@ -1,1 +1,19 @@
+<!-- View -->
 <?php require_once "view/template/header.phtml"; ?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            Name: <?php echo $_SESSION['firstName']; ?>
+            Last Name: <?php echo $_SESSION['lastName']; ?>
+        </div>
+        <div class="col-sm">
+            Profile Image
+            <img src="/images/user/<?php echo $_SESSION['profileImage'];?>"  alt="profileImage" class="img-thumbnail">
+        </div>
+        <div class="col-sm">
+            One of three columns
+        </div>
+    </div>
+</div>
+<?php require_once "view/template/footer.phtml";

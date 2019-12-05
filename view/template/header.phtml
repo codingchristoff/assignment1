@@ -21,17 +21,18 @@
 
     <!-- Shows login / register buttons if the user is logged out. -->
     <?php if (!isset($_SESSION["loggedin"]))
-        {
+    {
         require "view/login.phtml";
         require "view/register.phtml";
-        }
-        else
-        {
-           echo "<a href='account.php'>Account</a>";
+    }
+    else
+    {
+        echo "<a href='post.php'>Post</a>";
+        echo "<a href='account.php'>Account</a>";
+        require "view/createPost.phtml";
         require "view/logout.phtml";
-            echo "Welcome back: " . $_SESSION["userName"];
-        }
-        ?>
+    }
+    ?>
 
 </div>
 

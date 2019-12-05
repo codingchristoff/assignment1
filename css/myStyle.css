@@ -17,3 +17,9 @@
     background: dimgrey;
     border-color: #1b1e21;
 }
+
+.img-thumbnail {
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+}

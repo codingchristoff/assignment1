@@ -1,5 +1,9 @@
+<!-- Controller -->
 <?php
 session_start();
+
+$view = new stdClass();
+$view->pageTitle = "Account";
 
 if(!isset($_SESSION['loggedin']))
 {
@@ -8,11 +12,11 @@ if(!isset($_SESSION['loggedin']))
 }
 else
 {
-    $userID = $_SESSION['userID'];
+    require_once('model/logic/authentication.php');
+    require_once ('model/logic/createPost.php');
     require_once "view/account.phtml";
-    require_once ('model/Authentication.php');
-    echo "welcome " . $userID;
-
+    $userName = $_SESSION['userName'];
+    echo "Welcome " . $userName;
 }
 
 
