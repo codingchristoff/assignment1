@@ -4,8 +4,8 @@
 session_start();
 
 $view = new stdClass();
-$view->pageTitle = "Post";
-$view->postHandler = "";
+$view->pageTitle = "Search";
+$view->userHandler = "";
 
 if (!isset($_SESSION['loggedin']))
 {
@@ -15,6 +15,6 @@ if (!isset($_SESSION['loggedin']))
 else {
     require_once('model/logic/authentication.php');
     require_once('model/logic/createPost.php');
-    require_once('model/logic/retrievePost.php');
-    require_once('view/post.phtml');
+    require_once('model/logic/retrieveUser.php');
+    require_once('view/search.phtml');
 }

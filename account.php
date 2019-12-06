@@ -13,10 +13,18 @@ if(!isset($_SESSION['loggedin']))
 else
 {
     require_once('model/logic/authentication.php');
-    require_once ('model/logic/createPost.php');
-    require_once "view/account.phtml";
-    $userName = $_SESSION['userName'];
-    echo "Welcome " . $userName;
+    require_once('model/logic/createPost.php');
+    require_once"view/account.phtml";
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST')
+    {
+        if($_POST['submit'] == 'changeProfileImg')
+        {
+            $userHandler = new UserHandler();
+
+            $userHandler->uploadProfileImage();
+        }
+    }
 }
 
 

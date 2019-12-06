@@ -4,16 +4,23 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            Name: <?php echo $_SESSION['firstName']; ?>
-            Last Name: <?php echo $_SESSION['lastName']; ?>
+            <div class="card" style="width: 18rem;">
+                <img src="/images/user/<?php echo $_SESSION['profileImage'];?>" class="card-img-top" alt="profile image">
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName']; ?></h5>
+                    <p class="card-text">Username: <?php echo $_SESSION['userName']; ?></p>
+                    <form action="<?php $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
+                        <input type="file" name="image">
+                        <button class="btn btn-primary" type="submit" name="submit" value="changeProfileImg">Change Profile Image</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="col-sm">
-            Profile Image
-            <img src="/images/user/<?php echo $_SESSION['profileImage'];?>"  alt="profileImage" class="img-thumbnail">
         </div>
         <div class="col-sm">
-            One of three columns
         </div>
     </div>
 </div>
+
 <?php require_once "view/template/footer.phtml";

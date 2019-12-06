@@ -2,7 +2,7 @@
 <?php
 
 require_once('model/Post.php');
-require_once ('model/PostHandler.php');
+require_once('model/PostHandler.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {

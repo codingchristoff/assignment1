@@ -1,0 +1,26 @@
+<?php require_once('view/template/header.phtml');?>
+
+<div class="container">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <div class="form-group">
+            <input type="text" name="search" class="form-control">
+            <button type="submit" class="btn btn-primary" name="submit" value="searchMessage">Search</button>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <div class="form-group">
+            <input type="text" name="searchUser" class="form-control">
+            <button type="submit" class="btn btn-primary" name="submit" value="searchUser">User Search</button>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+    <?php echo $view->user->getUserName() . $view->user->getDateJoined();?>
+</div>
+
+
+<?php require_once('view/template/footer.phtml');?>

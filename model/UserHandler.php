@@ -192,4 +192,68 @@ class UserHandler
             return true;
         }
     }
+
+    /*
+     * Allows users to upload image
+     * !Need to add functionality to auto refresh the current image!
+    */
+    public function uploadProfileImage()
+    {
+        $file_name = $_FILES['image']['name'];
+        $file_tmp = $_FILES['image']['tmp_name'];
+        $folder = "images/user/";
+
+        move_uploaded_file($file_tmp, $folder.$file_name);
+
+        $sql = "UPDATE users SET profileImage = :fileName WHERE userID = :userID";
+
+        if ($stmt = $this->_dbHandle->prepare($sql))
+        {
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":fileName",$param_fileName,PDO::PARAM_STR);
+            $stmt->bindParam(":userID",$param_userID, PDO::PARAM_STR);
+
+            // Set parameters
+            $param_fileName = $file_name;
+            $param_userID = $_SESSION['userID'];
+
+            // Attempt to execute the prepared statement
+            if ($stmt->execute())
+            {
+                return "Successfully uploaded.";
+            }
+            else
+            {
+                return "Something went wrong. Please try again later.";
+            }
+        }
+        // Close statement
+        unset($stmt);
+        // Close connection
+        unset($pdo);
+    }
+
+    public function searchUser($userName)
+    {
+        $sql = 'SELECT * FROM users WHERE userName = :userName';
+
+        if ($stmt = $this->_dbHandle->prepare($sql))
+        {
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":userName", $param_userName, PDO::PARAM_STR);
+
+            // Set parameters
+            $param_userName = $userName;
+
+            $stmt->execute(); // execute the PDO statement
+
+            $row = $stmt->fetch();
+
+            $userData = new UserData($row);
+
+            return $userData;  // return an array of UserData objects
+        }
+    }
+
+
 }

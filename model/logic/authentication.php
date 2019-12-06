@@ -9,7 +9,7 @@ $user = new UserHandler();
 
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
 {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submit'] == 'logout')
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['submit'] == 'logout')
     {
         echo $user->logout();
     }
