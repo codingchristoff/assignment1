@@ -13,5 +13,4 @@ $postHandler = new PostHandler();
 
 $view->postHandler = $postHandler->getLatestPost();
 
-require_once('model/logic/retrievePost.php');
 require_once('view/index.phtml');
