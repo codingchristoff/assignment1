@@ -22,7 +22,7 @@ else
         if ($_POST['submit'] == 'register')
         {
             $validate = $user->register($_POST['firstName'], $_POST['lastName'], $_POST['email'], $_POST['username'], $_POST['password'], $_POST['confirm_password']);
-            echo "test validate " . $validate;
+            //echo "test validate " . $validate;
         }
         elseif ($_POST['submit'] == 'login')
         {

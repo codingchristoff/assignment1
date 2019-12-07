@@ -3,13 +3,36 @@
 <div class="container">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
-            <input type="text" name="search" class="form-control">
-            <button type="submit" class="btn btn-primary" name="submit" value="searchMessage">Search</button>
+            <input type="text" name="searchMessage" class="form-control">
+            <button type="submit" class="btn btn-primary" name="submit" value="searchMessage">Message Search</button>
         </div>
     </form>
 </div>
 
-<div class="container">
+
+<div class="row">
+    <?php if(isset($view->postHandler))
+    {
+        foreach ($view->postHandler as $post)
+        {
+            echo <<<EOT
+<div class="col-md-4">
+<div class="card" style="width: 18rem;">
+    <!--<img src="..." class="card-img-top" alt="...">-->
+    <div class="card-body">
+    <h5 class="card-title"> {$post->getPostTitle()} </h5>
+    <p class="card-text"> {$post->getPostOwner()} </p>
+    <p hidden></p>
+    <a href="viewPost.php?postID={$post->getPostID()}" class="btn btn-primary">View Post</a>
+    </div>
+</div>
+</div>
+EOT;
+        }
+    } ?>
+</div>
+
+<div class="container-fluid">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
             <input type="text" name="searchUser" class="form-control">
@@ -18,14 +41,18 @@
     </form>
 </div>
 
+<div class="container-fluid">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <input type="radio" name="test" value="test"> Test
+    </form>
+</div>
+
 <div class="card-body">
     <?php if(isset($view->user))
     {
-        echo $view->user->getUserName() . date('d-m-Y', strtotime($view->user->getDateJoined()));
+        echo $view->user->getUserName() . " " . date('d-m-Y', strtotime($view->user->getDateJoined()));
     }?>
-
 </div>
 
-
 <?php require_once('view/template/footer.phtml');?>
-<div class="container">
+

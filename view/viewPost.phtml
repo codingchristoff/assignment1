@@ -1,0 +1,7 @@
+<!-- View -->
+<?php require_once('view/template/header.phtml');?>
+
+<?php foreach ($view->thread as $post)
+    {echo $post->getPostTitle() . $post->getPostContent();}?>
+
+<?php require_once('view/template/footer.phtml');?>

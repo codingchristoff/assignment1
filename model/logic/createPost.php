@@ -6,7 +6,6 @@ require_once('model/PostHandler.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    echo $_POST['submit'];
     if ($_POST['submit'] == 'submitPost')
     {
         if (empty($_POST['postTitle']) || empty($_POST['postContent']))
@@ -20,10 +19,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             echo $post->createPost($_POST['postTitle'], $_POST['postContent']);
         }
     }
-        if ($_POST['submit'] == 'searchMessage')
-        {
-            $postHandler = new PostHandler();
-
-           $view->postHandler = $postHandler->fetchAllPosts();
-        }
 }

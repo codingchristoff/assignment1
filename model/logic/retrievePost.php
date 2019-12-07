@@ -2,4 +2,4 @@
 
 $postHandler = new PostHandler();
 
-$view->postHandler = $postHandler->getLatestPost();
+$view->thread = $postHandler->searchPostID($_GET['postID']);

@@ -20,12 +20,18 @@
     <div class="card-body">
     <h5 class="card-title"> {$post->getPostTitle()} </h5>
     <p class="card-text"> {$post->getPostOwner()} </p>
-    <a href="#" class="btn btn-primary">View Post</a>
+    <a href="viewPost.php?postID={$post->getPostID()}" class="btn btn-primary">View Post</a>
     </div>
 </div>
 </div>
 EOT;
 } ?>
+</div>
+
+<div class="container-fluid">
+    <div class="alert-warning">
+        <p>This website uses cookies to enhance your browsing session.</p>
+    </div>
 </div>
 
 <?php require ('view/template/footer.phtml'); ?>

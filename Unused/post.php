@@ -5,7 +5,6 @@ session_start();
 
 $view = new stdClass();
 $view->pageTitle = "Post";
-$view->postHandler = "";
 
 if (!isset($_SESSION['loggedin']))
 {
