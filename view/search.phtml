@@ -18,9 +18,14 @@
     </form>
 </div>
 
-<div class="container">
-    <?php echo $view->user->getUserName() . $view->user->getDateJoined();?>
+<div class="card-body">
+    <?php if(isset($view->user))
+    {
+        echo $view->user->getUserName() . date('d-m-Y', strtotime($view->user->getDateJoined()));
+    }?>
+
 </div>
 
 
 <?php require_once('view/template/footer.phtml');?>
+<div class="container">

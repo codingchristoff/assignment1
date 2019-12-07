@@ -1,6 +1,6 @@
 <?php
 
-
+require_once('model/PostHandler.php');
 class PostData
 {
     private $postID, $postTitle, $postContent, $postOwner, $postDate;
@@ -10,7 +10,7 @@ class PostData
         $this->postID = $dbRow['postID'];
         $this->postTitle = $dbRow['postTitle'];
         $this->postContent = $dbRow['postContent'];
-        $this->postOwner = $dbRow['postOwner'];
+        $this->postOwner = $dbRow['userName'];
         $this->postDate = $dbRow['postDate'];
     }
 

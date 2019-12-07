@@ -6,23 +6,26 @@
     <h1>Lets Talk: Star Citizen</h1>
 </div>
 
-<!-- Example of columns using the grid system -->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                One of three columns
-            </div>
-            <div class="col-sm">
-                One of three columns
-            </div>
-            <div class="col-sm">
-                One of three columns
-            </div>
-        </div>
-    </div>
+<div class="">
+    <h2>Latest Posts</h2>
+</div>
 
-    <div class="text-body col-xs-12">
-    <p>Test, akhdhdaskjdhakjssdadhasdhasjkdhkjahda kdhakhdkahdghdahsjdhajhdjahdjahdjahdajhdasjh</p>
+<div class="row">
+<?php foreach ($view->postHandler as $post)
+{
+    echo <<<EOT
+<div class="col-md-4">
+<div class="card" style="width: 18rem;">
+    <!--<img src="..." class="card-img-top" alt="...">-->
+    <div class="card-body">
+    <h5 class="card-title"> {$post->getPostTitle()} </h5>
+    <p class="card-text"> {$post->getPostOwner()} </p>
+    <a href="#" class="btn btn-primary">View Post</a>
     </div>
+</div>
+</div>
+EOT;
+} ?>
+</div>
 
 <?php require ('view/template/footer.phtml'); ?>

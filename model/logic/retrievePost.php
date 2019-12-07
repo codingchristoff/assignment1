@@ -2,4 +2,4 @@
 
 $postHandler = new PostHandler();
 
-$view->postHandler = $postHandler->fetchAllPosts();
+$view->postHandler = $postHandler->getLatestPost();
