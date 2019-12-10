@@ -11,10 +11,26 @@
 </div>
 
 <div class="row">
-<?php foreach ($view->postHandler as $post)
-{
-    echo <<<EOT
-<div class="col-md-4">
+    <div class="col-auto">
+        <div class="card" style="width: 18rem;">
+            <!--<img src="..." class="card-img-top" alt="...">-->
+            <div class="card-body">
+                <h5 class="card-title">Watch List</h5>
+                <?php foreach ($view->watchList as $watch)
+                {
+                    echo <<<EOT
+    <p class="card-text"> {$watch->getPostTitle()}</p>
+    <a href="viewPost.php?postID={$watch->getPostID()}" class="btn btn-primary">View Post</a>
+EOT;
+                } ?>
+            </div>
+        </div>
+    </div>
+
+    <?php foreach ($view->postHandler as $post)
+    {
+        echo <<<EOT
+<div class="col-auto">
 <div class="card" style="width: 18rem;">
     <!--<img src="..." class="card-img-top" alt="...">-->
     <div class="card-body">
@@ -25,7 +41,7 @@
 </div>
 </div>
 EOT;
-} ?>
+    } ?>
 </div>
 
 <div class="container-fluid">

@@ -44,6 +44,40 @@ class PostHandler
         return $dataSet;  // return an array of PostData objects
     }
 
+    public function createPost($postTitle, $postContent, $postOwner)
+    {
+
+        // Prepare an insert statement
+        $sql = "INSERT INTO posts (postTitle, postContent, postOwner) VALUES (:postTitle,:postContent,:postOwner)";
+
+        if ($stmt = $this->_dbHandle->prepare($sql))
+        {
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":postTitle",$param_postTitle,PDO::PARAM_STR);
+            $stmt->bindParam(":postContent",$param_postContent, PDO::PARAM_STR);
+            $stmt->bindParam(":postOwner",$param_postOwner, PDO::PARAM_STR);
+
+            // Set parameters
+            $param_postTitle = $postTitle;
+            $param_postContent = $postContent;
+            $param_postOwner = $postOwner;
+
+            // Attempt to execute the prepared statement
+            if ($stmt->execute())
+            {
+                return "Successful";
+            }
+            else
+            {
+                return "Something went wrong. Please try again later.";
+            }
+        }
+// Close statement
+        unset($stmt);
+// Close connection
+        unset($pdo);
+    }
+
     /**
      * Provides 9 latest posts.
      * @return array
@@ -70,21 +104,21 @@ class PostHandler
 
         $stmt = $this->_dbHandle->prepare($sql);
 
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":searchTerm", $param_searchTerm, PDO::PARAM_STR);
+        // Bind variables to the prepared statement as parameters
+        $stmt->bindParam(":searchTerm", $param_searchTerm, PDO::PARAM_STR);
 
-            // Set parameters
-            $param_searchTerm = "%$searchTerm%";
+        // Set parameters
+        $param_searchTerm = "%$searchTerm%";
 
-            $stmt->execute(); // execute the PDO statement
+        $stmt->execute(); // execute the PDO statement
 
-            $postData = [];
+        $postData = [];
 
-            while ($row = $stmt->fetch()) {
-                $postData[] = new PostData($row);
-            }
+        while ($row = $stmt->fetch()) {
+            $postData[] = new PostData($row);
+        }
 
-             return $postData;  // return an array of UserData objects
+        return $postData;  // return an array of UserData objects
 
     }
 
@@ -108,7 +142,61 @@ class PostHandler
             $postData[] = new PostData($row);
         }
 
+        return $postData;  // return an array of PostData objects
+    }
+
+    public function getWatchList($userID)
+    {
+        $sql = 'SELECT * FROM watchList w INNER JOIN posts p ON w.watchPost = p.postID  INNER JOIN users u on p.postOwner = u.userID WHERE watchUser = :userID';
+
+        $stmt = $this->_dbHandle->prepare($sql);
+
+        // Bind variables to the prepared statement as parameters
+        $stmt->bindParam(":userID", $param_userID, PDO::PARAM_STR);
+
+        // Set parameters
+        $param_userID = $userID;
+
+        $stmt->execute(); // execute the PDO statement
+
+        $postData = [];
+
+        while ($row = $stmt->fetch()) {
+            $postData[] = new PostData($row);
+        }
         return $postData;  // return an array of UserData objects
+    }
+
+    public function setWatchList($postID, $userID)
+    {
+        // Prepare an insert statement
+        $sql = "INSERT INTO watchList (watchPost, watchUser) VALUES (:postID,:userID)";
+
+        if ($stmt = $this->_dbHandle->prepare($sql))
+        {
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":postID",$param_postID,PDO::PARAM_STR);
+            $stmt->bindParam(":userID",$param_userID, PDO::PARAM_STR);
+
+            // Set parameters
+            $param_postID = $postID;
+            $param_userID= $userID;
+
+            // Attempt to execute the prepared statement
+            if ($stmt->execute())
+            {
+                $URL = "viewPost.php?postID=$postID";
+                return '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+            }
+            else
+            {
+                return "Something went wrong. Please try again later.";
+            }
+        }
+// Close statement
+        unset($stmt);
+// Close connection
+        unset($pdo);
 
     }
 

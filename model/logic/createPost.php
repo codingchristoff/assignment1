@@ -1,7 +1,6 @@
 <!-- Logic Model -->
 <?php
 
-require_once('model/Post.php');
 require_once('model/PostHandler.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -14,9 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         }
         else
         {
-            $post = new Post();
+            $post = new PostHandler();
 
-            echo $post->createPost($_POST['postTitle'], $_POST['postContent']);
+            echo $post->createPost($_POST['postTitle'], $_POST['postContent'], $_SESSION['userID']);
         }
     }
 }

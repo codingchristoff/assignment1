@@ -1,44 +1,44 @@
 <!-- View -->
 <!-- Button trigger modal -->
-<button id="newPost" type="button" class="btn btn-success" data-toggle="modal" data-target="#newPostModal">
-    Create Post
+<button id="newMessage" type="button" class="btn btn-success" data-toggle="modal" data-target="#newMessageModal">
+    Create Message
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="newPostModalLabel" aria-hidden="true">
+<div class="modal fade" id="newMessageModal" tabindex="-1" role="dialog" aria-labelledby="newMessageModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newPostModalLabel">Create Post</h5>
+                <h5 class="modal-title" id="newMessageModalLabel">Create Message</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Write your post below.</p>
+                <p>Write your message below.</p>
 
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
                     <div class="form-group">
                         <label>Title</label>
-                        <input type="text" name="postTitle" class="form-control" required>
+                        <input type="text" name="messageTitle" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Content</label>
-                        <input type="text" name="postContent" class="form-control" required>
+                        <input type="text" name="messageContent" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Tags</label>
-                        <input type="text" name="postTags" class="form-control" required>
-                        <span-help class="alert-info">Separate tags using #.</span-help>
+                        <input hidden type="text" name="messageOwner" class="form-control" value="<?php echo $_SESSION['userID']?>">
+                    </div>
+                    <div class="form-group">
+                        <input hidden type="text" name="messageRecip" class="form-control" value="<?php echo $view->user->getUserID();?>">
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" name="submit" value="submitPost">Submit</button>
+                <button type="submit" class="btn btn-primary" name="submit" value="submitMessage">Submit</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
             </form>
         </div>
     </div>
 </div>
-

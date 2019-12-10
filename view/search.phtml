@@ -51,7 +51,10 @@ EOT;
     <?php if(isset($view->user))
     {
         echo $view->user->getUserName() . " " . date('d-m-Y', strtotime($view->user->getDateJoined()));
+        require_once('view/createMessage.phtml');
     }?>
+
+
 </div>
 
 <?php require_once('view/template/footer.phtml');?>

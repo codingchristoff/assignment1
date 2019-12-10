@@ -2,6 +2,41 @@
 <?php require_once('view/template/header.phtml');?>
 
 <?php foreach ($view->thread as $post)
-    {echo $post->getPostTitle() . $post->getPostContent();}?>
+{
+    echo <<<EOT
+<div class="col-auto">
+<div class="card" style="width: auto;">
+    <!--<img src="..." class="card-img-top" alt="...">-->
+    <div class="card-body">
+    <h5 class="card-title"> {$post->getPostTitle()} </h5>
+    <p class="card-text">{$post->getPostContent()}</p>
+    <p class="card-subtitle">{$post->getPostOwner()}</p> 
+    <p class="card-subtitle">{$post->getPostID()}</p> 
+    </div>
+EOT;
+    if (isset($_SESSION['loggedin']))
+    {
+        require_once('view/createReply.phtml');
+        require_once('view/addWatchList.phtml');
+    }
+    echo "</div>";
+    echo "</div>";
+}?>
+
+<?php foreach ($view->replyHandler as $reply)
+{
+    echo <<<EOT
+<div class="col-auto offset-1">
+<div class="card" style="width: auto;">
+    <!--<img src="..." class="card-img-top" alt="...">-->
+    <div class="card-body">
+    <h5 class="card-title">Username: {$reply->getReplyBy()} </h5>
+    <p class="card-text">{$reply->getReplyContent()}</p> 
+    </div>
+EOT;
+    //require_once('view/createReply.phtml');
+    echo "</div>";
+    echo "</div>";
+}?>
 
 <?php require_once('view/template/footer.phtml');?>
