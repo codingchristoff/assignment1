@@ -11,7 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
         echo $post->setWatchList($_POST['postID'], $_SESSION['userID']);
     }
+    elseif ($_POST['submit'] === 'unsubscribe')
+    {
+        echo $post->unsetWatchList($_POST['postID'], $_SESSION['userID']);
+    }
 }
-
-$view->watchList = $post->getWatchList($_SESSION['userID']);
-

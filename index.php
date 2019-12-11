@@ -13,6 +13,8 @@ require_once('model/logic/watchList.php');
 $postHandler = new PostHandler();
 
 $view->postHandler = $postHandler->getLatestPost();
-$view->watchList = $postHandler->getWatchList($_SESSION['userID']);
-
+if(isset($_SESSION['loggedin']))
+{
+    $view->watchList = $postHandler->getWatchList($_SESSION['userID']);
+}
 require_once('view/index.phtml');

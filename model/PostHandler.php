@@ -197,7 +197,38 @@ class PostHandler
         unset($stmt);
 // Close connection
         unset($pdo);
+    }
 
+    public function unsetWatchList($postID, $userID)
+    {
+        // Prepare an insert statement
+        $sql = "DELETE FROM watchList WHERE watchPost = :postID AND watchUser = :userID";
+
+        if ($stmt = $this->_dbHandle->prepare($sql))
+        {
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":postID",$param_postID,PDO::PARAM_STR);
+            $stmt->bindParam(":userID",$param_userID, PDO::PARAM_STR);
+
+            // Set parameters
+            $param_postID = $postID;
+            $param_userID= $userID;
+
+            // Attempt to execute the prepared statement
+            if ($stmt->execute())
+            {
+                $URL = "viewPost.php?postID=$postID";
+                return '<META HTTP-EQUIV="refresh" content="0;URL=' . $URL . '">';
+            }
+            else
+            {
+                return "Something went wrong. Please try again later.";
+            }
+        }
+// Close statement
+        unset($stmt);
+// Close connection
+        unset($pdo);
     }
 
 }

@@ -32,30 +32,9 @@ EOT;
     } ?>
 </div>
 
-<div class="container-fluid">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="form-group">
-            <input type="text" name="searchUser" class="form-control">
-            <button type="submit" class="btn btn-primary" name="submit" value="searchUser">User Search</button>
-        </div>
-    </form>
+<div class="container">
+    <?php if(isset($_SESSION['loggedin'])){require_once('view/searchUser.phtml');}?>
 </div>
 
-<div class="container-fluid">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-        <input type="radio" name="test" value="test"> Test
-    </form>
-</div>
-
-<div class="card-body">
-    <?php if(isset($view->user))
-    {
-        echo $view->user->getUserName() . " " . date('d-m-Y', strtotime($view->user->getDateJoined()));
-        require_once('view/createMessage.phtml');
-    }?>
-
-
-</div>
 
 <?php require_once('view/template/footer.phtml');?>
-

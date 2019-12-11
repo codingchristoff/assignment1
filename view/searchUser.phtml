@@ -1,0 +1,27 @@
+<!-- View -->
+
+<div class="container-fluid">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <div class="form-group">
+            <input type="text" name="searchUser" class="form-control">
+            <button type="submit" class="btn btn-primary" name="submit" value="searchUser">User Search</button>
+        </div>
+    </form>
+</div>
+
+<?php if(isset($view->user))
+{
+    $date = date('d-m-Y', strtotime($view->user->getDateJoined()));
+    echo <<<EOT
+<div class="col-sm">
+    <div class="card" style="width: 18rem;">        
+        <div class="card-body">
+            <h5 class="card-title">Username: {$view->user->getUserName()}</h5>
+            <p class="card-text">Date Joined: {$date}</p>
+EOT;
+
+    require_once('view/createMessage.phtml');
+}?>
+</div>
+</div>
+</div>
