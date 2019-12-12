@@ -2,20 +2,16 @@
 
 <?php require_once('view/template/header.phtml');?>
 
-<?php foreach ($view->messageHandler as $message)
-{
-    echo <<<EOT
-<div class="col-auto">
-<div class="card" style="width: 30rem;">
-    <!--<img src="..." class="card-img-top" alt="...">-->
-    <div class="card-body">
-    <h5 class="card-title">{$message->getMessageTitle()}</h5>
-    <p class="card-text">{$message->getMessageContent()}</p>
-    <p class="card-subtitle">From: {$message->getMessageOwner()}</p>
+<?php foreach ($view->messageHandler as $message) : ?>
+    <div class="col-auto">
+        <div class="card" style="width: 30rem;">
+            <div class="card-body">
+                <h5 class="card-title"><?=$message->getMessageTitle()?></h5>
+                <p class="card-text"><?=$message->getMessageContent()?></p>
+                <p class="card-subtitle">From: <?=$message->getMessageOwner()?></p>
+            </div>
+        </div>
     </div>
-</div>
-</div>
-EOT;
-} ?>
+<?php endforeach; ?>
 
 <?php require_once('view/template/footer.phtml');?>

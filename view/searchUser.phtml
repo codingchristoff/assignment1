@@ -9,7 +9,11 @@
     </form>
 </div>
 
-<?php if(isset($view->user)) : ?>
+<!-- If empty display nothing, elseif display user not found, else display user info -->
+<?php if(!isset($view->user)) : ?>
+<?php elseif($view->user->getUserID() == null) : ?>
+<div class="alert alert-info">No users found with that name</div>
+<?php else : ?>
 <?php $date = date('d-m-Y', strtotime($view->user->getDateJoined()));?>
 <div class="col-sm">
     <div class="card" style="width: 18rem;">

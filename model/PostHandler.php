@@ -29,21 +29,13 @@ class PostHandler
         return $this->_dbInstance;
     }
 
-    public function fetchAllPosts()
-    {
-        $sqlQuery = 'SELECT * FROM posts';
-
-        $statement = $this->_dbHandle->prepare($sqlQuery); // prepare PDO statement
-        $statement->execute(); // execute the PDO statement
-
-        $dataSet = [];
-
-        while ($row = $statement->fetch()) {
-            $dataSet[] = new PostData($row);
-        }
-        return $dataSet;  // return an array of PostData objects
-    }
-
+    /**
+     * Creates a new posting.
+     * @param $postTitle
+     * @param $postContent
+     * @param $postOwner
+     * @return string
+     */
     public function createPost($postTitle, $postContent, $postOwner)
     {
         $file_name = $_FILES['image']['name'];
@@ -105,6 +97,11 @@ class PostHandler
 
     }
 
+    /**
+     * Searches for posting from given term.
+     * @param $searchTerm
+     * @return array
+     */
     public function searchPost($searchTerm)
     {
         $sql = 'SELECT *,u.userName FROM posts p INNER JOIN users u ON p.postOwner = u.userID WHERE postTitle LIKE :searchTerm';
@@ -126,9 +123,13 @@ class PostHandler
         }
 
         return $postData;  // return an array of UserData objects
-
     }
 
+    /**
+     * Takes the postID and returns the post.
+     * @param $postID
+     * @return array
+     */
     public function searchPostID($postID)
     {
         $sql = 'SELECT *,u.userName FROM posts p INNER JOIN users u ON p.postOwner = u.userID WHERE postID = :postID';
@@ -152,6 +153,11 @@ class PostHandler
         return $postData;  // return an array of PostData objects
     }
 
+    /**
+     * Gets the watchList for the specified user.
+     * @param $userID
+     * @return array
+     */
     public function getWatchList($userID)
     {
         $sql = 'SELECT * FROM watchList w INNER JOIN posts p ON w.watchPost = p.postID  INNER JOIN users u on p.postOwner = u.userID WHERE watchUser = :userID';
@@ -174,6 +180,12 @@ class PostHandler
         return $postData;  // return an array of UserData objects
     }
 
+    /**
+     * Sets watchList for specified user.
+     * @param $postID
+     * @param $userID
+     * @return string
+     */
     public function setWatchList($postID, $userID)
     {
         // Prepare an insert statement
@@ -206,6 +218,12 @@ class PostHandler
         unset($pdo);
     }
 
+    /**
+     * Removes post from watchList.
+     * @param $postID
+     * @param $userID
+     * @return string
+     */
     public function unsetWatchList($postID, $userID)
     {
         // Prepare an insert statement
@@ -238,6 +256,11 @@ class PostHandler
         unset($pdo);
     }
 
+    /**
+     * Allows users to upload images to their posts.
+     * @param $postID
+     * @return string
+     */
     public function uploadPostImage($postID)
     {
         $file_name = $_FILES['image']['name'];

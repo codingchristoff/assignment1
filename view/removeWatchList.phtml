@@ -16,13 +16,10 @@
             </div>
             <div class="modal-body">
                 <p>Confirm to unsubscribe.</p>
-
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-
                     <div class="form-group">
                         <input hidden type="text" name="postID" value="<?php echo $view->threadID;?>">
                     </div>
-
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" name="submit" value="unsubscribe">Unsubscribe</button>

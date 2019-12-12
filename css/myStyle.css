@@ -1,3 +1,6 @@
+body {
+    font-family: 'Sulphur Point', sans-serif;
+}
 .panel-footer {
     background: #2aabd2;
     text-align: center;
@@ -106,5 +109,15 @@ img {
 #watchList .container p {
     margin: auto;
     vertical-align: center;
+}
+
+#searchMessage .form-group input{
+    margin: 10px 0px;
+    border: 3px solid black;
+}
+
+#searchUser .form-group input{
+    margin: 10px 0px;
+    border: 3px solid black;
 }
 

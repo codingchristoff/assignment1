@@ -5,7 +5,7 @@ session_start();
 
 $view = new stdClass();
 $view->pageTitle = "Search";
-$view->userHandler = "";
+//$view->userHandler = "";
 
 //Models
 require_once('model/logic/authentication.php');
