@@ -1,16 +1,14 @@
-<div class="col-auto">
-        <div class="card" style="width: 18rem;">
-            <!--<img src="..." class="card-img-top" alt="...">-->
+<!-- View -->
+    <div class="col-auto">
+        <div class="card" id="watchList" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Watch List</h5>
-                <?php foreach ($view->watchList as $watch)
-                {
-                    echo <<<EOT
-    <p class="card-text"> {$watch->getPostTitle()}</p>
-    <a href="viewPost.php?postID={$watch->getPostID()}" class="btn btn-primary">View Post</a>
-EOT;
-                } ?>
+                <?php foreach ($view->watchList as $watch) : ?>
+                    <div class="container">
+                        <p class="card-text"><?=$watch->getPostTitle()?></p>
+                        <a href="viewPost.php?postID=<?=$watch->getPostID()?>" class="btn btn-primary">View Post</a>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
-

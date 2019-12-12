@@ -3,10 +3,10 @@
 <?php require ('view/template/header.phtml'); ?>
 
 <div class="jumbotron">
-    <h1>Lets Talk: Star Citizen</h1>
+    <h1>Let's Talk: Star Citizen</h1>
 </div>
 
-<div class="">
+<div class="container">
     <h2>Latest Posts</h2>
 </div>
 
@@ -14,23 +14,23 @@
     <?php if(isset($_SESSION['loggedin']))
     {
         require_once('view/watchList.phtml');
-    }
-    foreach ($view->postHandler as $post)
-    {
-        echo <<<EOT
-<div class="col-auto">
-<div class="card" style="width: 18rem;">
-    <!--<img src="..." class="card-img-top" alt="...">-->
-    <div class="card-body">
-    <h5 class="card-title"> {$post->getPostTitle()} </h5>
-    <p class="card-text"> {$post->getPostOwner()} </p>
-    <a href="viewPost.php?postID={$post->getPostID()}" class="btn btn-primary">View Post</a>
-    </div>
+    }?>
+
+    <?php foreach ($view->postHandler as $post) : ?>
+        <div class="col-auto">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><?=$post->getPostTitle()?></h5>
+                    <p class="card-text"><?=$post->getPostOwner()?></p>
+                    <a href="viewPost.php?postID=<?=$post->getPostID()?>" class="btn btn-primary">View Post</a>
+                </div>
+            </div>
+        </div>
+    <?php endforeach;?>
 </div>
-</div>
-EOT;
-    } ?>
-</div>
+
+
+
 
 <div class="container-fluid">
     <div class="alert-warning">

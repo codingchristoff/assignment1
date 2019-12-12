@@ -1,43 +1,50 @@
 <!-- View -->
 <?php require_once('view/template/header.phtml');?>
 
-<?php foreach ($view->thread as $post)
-{
-    echo <<<EOT
-<div class="col-auto">
-<div class="card" style="width: auto;">
-    <!--<img src="..." class="card-img-top" alt="...">-->
-    <div class="card-body">
-    <h5 class="card-title"> {$post->getPostTitle()} </h5>
-    <p class="card-text">{$post->getPostContent()}</p>
-    <p class="card-subtitle">{$post->getPostOwner()}</p> 
-    <p class="card-subtitle">{$post->getPostID()}</p> 
-    </div>
-EOT;
-    if (isset($_SESSION['loggedin']))
-    {
-        require_once('view/createReply.phtml');
-        require_once('view/addWatchList.phtml');
-        require_once('view/removeWatchList.phtml');
-    }
-    echo "</div>";
-    echo "</div>";
-}?>
+<?php foreach ($view->thread as $post) : ?>
 
-<?php foreach ($view->replyHandler as $reply)
-{
-    echo <<<EOT
-<div class="col-auto offset-1">
-<div class="card" style="width: auto;">
-    <!--<img src="..." class="card-img-top" alt="...">-->
-    <div class="card-body">
-    <h5 class="card-title">Username: {$reply->getReplyBy()} </h5>
-    <p class="card-text">{$reply->getReplyContent()}</p> 
+<div class='col-auto'>
+    <div class='card' id='post' style='width: auto;'>
+
+        <?php if (isset($_SESSION['loggedin'])) : ?>
+            <img src='images/posts/<?=$post->getPostImage()?>' class='card-img-top' alt=' '>
+        <?php endif;?>
+
+        <div class="card-body">
+            <h5 class="card-title"> <?=$post->getPostTitle()?> </h5>
+            <p class="card-text"><?=$post->getPostContent()?></p>
+            <p class="card-subtitle"><?=$post->getPostOwner()?></p>
+            <p class="card-subtitle"><?=$post->getPostID()?></p>
+        </div>
+
+        <?php if (isset($_SESSION['loggedin'])) : ?>
+            <div class="row">
+                <div class="col-sm" id="post">
+                    <?php require_once('view/createReply.phtml');?>
+                </div>
+                <div class="col-sm" id="post">
+                    <?php require_once('view/addWatchList.phtml');?>
+                </div>
+                <?php require_once('view/addWatchList.phtml');?>
+                <div class="col-sm" id="post">
+                    <?php require_once('view/removeWatchList.phtml');?>
+                </div>
+            </div>
+        <?php endif; endforeach;?>
     </div>
-EOT;
-    //require_once('view/createReply.phtml');
-    echo "</div>";
-    echo "</div>";
-}?>
+</div>
+
+<?php foreach ($view->replyHandler as $reply) : ?>
+
+
+    <div class="col-auto offset-1">
+        <div class="card" style="width: auto;">
+            <div class="card-body">
+                <h5 class="card-title">Username: <?=$reply->getReplyBy()?></h5>
+                <p class="card-text"><?=$reply->getReplyContent()?></p>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
 
 <?php require_once('view/template/footer.phtml');?>

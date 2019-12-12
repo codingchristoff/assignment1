@@ -3,7 +3,7 @@
 require_once('model/PostHandler.php');
 class PostData
 {
-    private $postID, $postTitle, $postContent, $postOwner, $postDate;
+    private $postID, $postTitle, $postContent, $postOwner, $postDate, $postImage;
 
     public function __construct($dbRow)
     {
@@ -12,6 +12,7 @@ class PostData
         $this->postContent = $dbRow['postContent'];
         $this->postOwner = $dbRow['userName'];
         $this->postDate = $dbRow['postDate'];
+        $this->postImage = $dbRow['postImage'];
     }
 
     /**
@@ -52,5 +53,13 @@ class PostData
     public function getPostDate()
     {
         return $this->postDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPostImage()
+    {
+        return $this->postImage;
     }
 }

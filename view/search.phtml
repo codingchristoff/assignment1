@@ -1,40 +1,32 @@
+<!-- View -->
 <?php require_once('view/template/header.phtml');?>
 
-<div class="container">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="form-group">
-            <input type="text" name="searchMessage" class="form-control">
-            <button type="submit" class="btn btn-primary" name="submit" value="searchMessage">Message Search</button>
-        </div>
-    </form>
-</div>
-
-
-<div class="row">
-    <?php if(isset($view->postHandler))
-    {
-        foreach ($view->postHandler as $post)
-        {
-            echo <<<EOT
-<div class="col-md-4">
-<div class="card" style="width: 18rem;">
-    <!--<img src="..." class="card-img-top" alt="...">-->
-    <div class="card-body">
-    <h5 class="card-title"> {$post->getPostTitle()} </h5>
-    <p class="card-text"> {$post->getPostOwner()} </p>
-    <p hidden></p>
-    <a href="viewPost.php?postID={$post->getPostID()}" class="btn btn-primary">View Post</a>
+    <div class="container" id="searchMessage">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="form-group">
+                <input type="text" name="searchMessage" class="form-control">
+                <button type="submit" class="btn btn-primary" name="submit" value="searchMessage">Message Search</button>
+            </div>
+        </form>
     </div>
-</div>
-</div>
-EOT;
-        }
-    } ?>
-</div>
 
-<div class="container">
-    <?php if(isset($_SESSION['loggedin'])){require_once('view/searchUser.phtml');}?>
-</div>
+    <div class="row">
+        <?php if(isset($view->postHandler)) : ?>
+            <?php foreach ($view->postHandler as $post) : ?>
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title"><?=$post->getPostTitle()?></h5>
+                            <p class="card-text"><?=$post->getPostOwner()?></p>
+                            <a href="viewPost.php?postID=<?=$post->getPostID()?>" class="btn btn-primary">View Post</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; endif; ?>
+    </div>
 
+    <div class="container" id="searchUser">
+        <?php if(isset($_SESSION['loggedin'])){require_once('view/searchUser.phtml');}?>
+    </div>
 
 <?php require_once('view/template/footer.phtml');?>

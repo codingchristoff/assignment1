@@ -21,7 +21,6 @@ else
         if($_POST['submit'] == 'changeProfileImg')
         {
             $userHandler = new UserHandler();
-
             $userHandler->uploadProfileImage();
         }
     }

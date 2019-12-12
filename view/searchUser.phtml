@@ -9,19 +9,16 @@
     </form>
 </div>
 
-<?php if(isset($view->user))
-{
-    $date = date('d-m-Y', strtotime($view->user->getDateJoined()));
-    echo <<<EOT
+<?php if(isset($view->user)) : ?>
+<?php $date = date('d-m-Y', strtotime($view->user->getDateJoined()));?>
 <div class="col-sm">
-    <div class="card" style="width: 18rem;">        
+    <div class="card" style="width: 18rem;">
+        <img src='images/user/<?=$view->user->getProfileImage()?>' class='card-img-top' alt=' '>
         <div class="card-body">
-            <h5 class="card-title">Username: {$view->user->getUserName()}</h5>
-            <p class="card-text">Date Joined: {$date}</p>
-EOT;
-
-    require_once('view/createMessage.phtml');
-}?>
-</div>
-</div>
+            <h5 class="card-title">Username: <?=$view->user->getUserName()?></h5>
+            <p class="card-text">Date Joined: <?=$date?></p>
+            <?php require_once('view/createMessage.phtml');?>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>

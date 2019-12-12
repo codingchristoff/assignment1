@@ -46,9 +46,14 @@ class PostHandler
 
     public function createPost($postTitle, $postContent, $postOwner)
     {
+        $file_name = $_FILES['image']['name'];
+        $file_tmp = $_FILES['image']['tmp_name'];
+        $folder = "images/posts/";
+
+        move_uploaded_file($file_tmp, $folder.$file_name);
 
         // Prepare an insert statement
-        $sql = "INSERT INTO posts (postTitle, postContent, postOwner) VALUES (:postTitle,:postContent,:postOwner)";
+        $sql = "INSERT INTO posts (postTitle, postContent, postOwner, postImage) VALUES (:postTitle,:postContent,:postOwner, :fileName)";
 
         if ($stmt = $this->_dbHandle->prepare($sql))
         {
@@ -56,11 +61,13 @@ class PostHandler
             $stmt->bindParam(":postTitle",$param_postTitle,PDO::PARAM_STR);
             $stmt->bindParam(":postContent",$param_postContent, PDO::PARAM_STR);
             $stmt->bindParam(":postOwner",$param_postOwner, PDO::PARAM_STR);
+            $stmt->bindParam(":fileName",$param_fileName,PDO::PARAM_STR);
 
             // Set parameters
             $param_postTitle = $postTitle;
             $param_postContent = $postContent;
             $param_postOwner = $postOwner;
+            $param_fileName = $file_name;
 
             // Attempt to execute the prepared statement
             if ($stmt->execute())
@@ -231,4 +238,39 @@ class PostHandler
         unset($pdo);
     }
 
+    public function uploadPostImage($postID)
+    {
+        $file_name = $_FILES['image']['name'];
+        $file_tmp = $_FILES['image']['tmp_name'];
+        $folder = "images/posts/";
+
+        move_uploaded_file($file_tmp, $folder.$file_name);
+
+        $sql = "UPDATE posts SET postImage = :fileName WHERE postID = :postID";
+
+        if ($stmt = $this->_dbHandle->prepare($sql))
+        {
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":fileName",$param_fileName,PDO::PARAM_STR);
+            $stmt->bindParam(":postID",$param_userID, PDO::PARAM_STR);
+
+            // Set parameters
+            $param_fileName = $file_name;
+            $param_userID = $postID;
+
+            // Attempt to execute the prepared statement
+            if ($stmt->execute())
+            {
+                return "Successfully uploaded.";
+            }
+            else
+            {
+                return "Something went wrong. Please try again later.";
+            }
+        }
+        // Close statement
+        unset($stmt);
+        // Close connection
+        unset($pdo);
+    }
 }

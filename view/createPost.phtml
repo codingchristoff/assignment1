@@ -17,7 +17,7 @@
             <div class="modal-body">
                 <p>Write your post below.</p>
 
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 
                     <div class="form-group">
                         <label>Title</label>
@@ -32,6 +32,12 @@
                         <input type="text" name="postTags" class="form-control" required>
                         <span-help class="alert-info">Separate tags using #.</span-help>
                     </div>
+
+                    <div class="form-group">
+                        <label>Image</label>
+                        <input type="file" name="image" class="form-control">
+                    </div>
+
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" name="submit" value="submitPost">Submit</button>
